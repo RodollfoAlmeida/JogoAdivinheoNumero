@@ -15,7 +15,37 @@ def carregar_tarefas():
 def listar_tarefas(tarefas):
     print("Tarefas:")
     for tarefa in tarefas:
-        print(f"ID: {tarefa['id']}, Titulo: {tarefa['titulo']}")
+        status = "Concluida" if tarefa['concluida'] else "Pendente"
+        print(f"ID: {tarefa['id']}, Titulo: {tarefa['titulo']}, Status: {status}")
+
+
+# Escreve no arquivo e salva Tarefas 
+
+def salvar_tarefas(tarefas):
+    with open('tarefas.json', 'w') as arquivo:
+            json.dump(tarefas, arquivo, indent=4)
+
+
+# Adicionar tarefas
+
+def adicionar_tarefas(tarefas):    
+    print("Inclua a tarefa")
+    titulo = input("Titulo: ")
+    descricao = input("Descrição: ")
+
+    tarefa = {
+        'id': len(tarefas) + 1,
+        'titulo': titulo,
+        'descricao': descricao,
+        'status': False
+
+    }
+     
+    tarefas.append(tarefa)  
+    salvar_tarefas(tarefas)
+    print("Tarefa inserida com sucesso!")
+  
+
     
 # Menu de Tarefas
 
@@ -35,9 +65,18 @@ def main():
     while True:
         opcao = menu()
         if opcao == '1':
-            break
-        if opcao == '2':
+            adicionar_tarefas(tarefas)
+        elif opcao == '2':
             listar_tarefas(tarefas)
+        elif opcao == '3':
+            concluir_tarefa(tarefas)
+        elif opcao == '4':
+            excluir_tarefa(tarefas)
+        elif opcao == '5':
+            print("Encerrando o programa...")
+            break
+        else:
+            print("Opção Invalida!")
 
 
 
