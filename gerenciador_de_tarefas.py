@@ -44,6 +44,27 @@ def adicionar_tarefas(tarefas):
     tarefas.append(tarefa)  
     salvar_tarefas(tarefas)
     print("Tarefa inserida com sucesso!")
+
+# função de concluir tarefas
+
+def concluir_tarefa(tarefas):
+    for tarefa in tarefas:
+        print(f"ID: {tarefa['id']}, Titulo: {tarefa['titulo']}")
+
+    id_escolhido = int(input("Digite o ID da tarefa a concluir: "))
+    # int() converte o texto digitado em número, para bater com o tipo do 'id' no JSON
+
+    for tarefa in tarefas:
+        if tarefa['id'] == id_escolhido:
+            tarefa['concluida'] = True
+            # aqui você está alterando o próprio dicionário que está dentro da lista,
+            # não uma cópia; é por isso que não precisa reatribuir tarefas depois
+            break
+            # o break existe porque, uma vez achado o ID certo, não há motivo
+            # para continuar percorrendo o resto da lista
+
+    salvar_tarefas(tarefas)
+    print("Tarefa concluída com sucesso!")
   
 
     
