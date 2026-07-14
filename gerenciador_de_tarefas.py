@@ -51,58 +51,93 @@ def adicionar_tarefas(tarefas):
     salvar_tarefas(tarefas)
     print("Tarefa inserida com sucesso!")
 
-# função de concluir tarefas
+# função de concluir tarefas codigo melhorado pelo chat gpt
 
 
 def concluir_tarefa(tarefas):
     for tarefa in tarefas:
         print(f"ID: {tarefa['id']}, Titulo: {tarefa['titulo']}")
-    
-    
+
     while True:
-        id_escolhido = input("Digite o ID da tarefa a concluir: ")
-        # int() converte o texto digitado em número, para bater com o tipo do 'id' no JSON
     
-        # Validar se digitou um numero de ID valido
+        id_escolhido = input("Digite o ID: ")
     
         if not id_escolhido.isdigit():
-                print("Isso não é um número valido! Digite novamente")
-                continue 
-        
-        # tranformar o valor digitado em int 
+            print("Digite apenas números.")
+            continue
     
-        id_escolhido = int(id_escolhido)   
-
-        # validar se o id existe
-        
-        #for tarefa in tarefas:
-        #    if tarefa['id'] == id_escolhido: 
-        #        break
-        #    else:
-        #        print("ID não encontrado, tente novamente.") 
-     
+        id_escolhido = int(id_escolhido)
+    
+        encontrou = False
     
         for tarefa in tarefas:
-            if tarefa['id'] == id_escolhido:
-                if tarefa['concluida'] == True:
-                    print(f"A tarefa de ID: {id_escolhido} ja estava com status concluida")
-
-                elif id_escolhido != tarefa['id']:
-                    print("ID Não enonrtado")
-                    continue  
-                                    
+    
+            if tarefa["id"] == id_escolhido:
+    
+                encontrou = True
+    
+                if tarefa["concluida"]:
+                    print("Essa tarefa já está concluída.")
                 else:
-                    tarefa['concluida'] = True
-                    print("Tarefa concluída com sucesso!")   
+                    tarefa["concluida"] = True
+                    salvar_tarefas(tarefas)
+                    print("Concluída com sucesso!")
+    
+                break
+    
+        if encontrou:
+            break
+    
+        print("ID não encontrado.")
+
+
+    
+# meu codigo para analisar futuramente    
+    # while True:
+        # id_escolhido = input("Digite o ID da tarefa a concluir: ")
+        # # int() converte o texto digitado em número, para bater com o tipo do 'id' no JSON
+    
+        # # Validar se digitou um numero de ID valido
+    
+        # if not id_escolhido.isdigit():
+                # print("Isso não é um número valido! Digite novamente")
+                # continue 
+        
+        # # tranformar o valor digitado em int 
+    
+        # id_escolhido = int(id_escolhido)   
+
+        # # validar se o id existe
+        
+        # #for tarefa in tarefas:
+        # #    if tarefa['id'] == id_escolhido: 
+        # #        break
+        # #    else:
+        # #        print("ID não encontrado, tente novamente.") 
+     
+    
+        # for tarefa in tarefas:
+            # if tarefa['id'] == id_escolhido:
+                # if tarefa['concluida'] == True:
+                    # print(f"A tarefa de ID: {id_escolhido} ja estava com status concluida")
+
+                # elif id_escolhido != tarefa['id']:
+                    # print("ID Não enonrtado")
+                    # continue  
+                                    
+                # else:
+                    # tarefa['concluida'] = True
+                    # print("Tarefa concluída com sucesso!")   
                                 
             
-                # aqui você está alterando o próprio dicionário que está dentro da lista,
-                # não uma cópia; é por isso que não precisa reatribuir tarefas depois
+                # # aqui você está alterando o próprio dicionário que está dentro da lista,
+                # # não uma cópia; é por isso que não precisa reatribuir tarefas depois
                 
-                # o break existe porque, uma vez achado o ID certo, não há motivo
-                # para continuar percorrendo o resto da lista
-        break 
-        salvar_tarefas(tarefas)
+                # # o break existe porque, uma vez achado o ID certo, não há motivo
+                # # para continuar percorrendo o resto da lista
+        # break 
+        # salvar_tarefas(tarefas)
+    
               
         
         
