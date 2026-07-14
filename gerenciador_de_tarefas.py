@@ -25,6 +25,12 @@ def salvar_tarefas(tarefas):
     with open('tarefas.json', 'w') as arquivo:
             json.dump(tarefas, arquivo, indent=4)
 
+# gerar id 
+
+def gerar_id(tarefas):
+    if tarefas:
+        return tarefas[-1][id] + 1
+
 
 # Adicionar tarefas
 
@@ -34,7 +40,7 @@ def adicionar_tarefas(tarefas):
     descricao = input("Descrição: ")
 
     tarefa = {
-        'id': len(tarefas) + 1,
+        'id': gerar_id(tarefas),
         'titulo': titulo,
         'descricao': descricao,
         'concluida': False
@@ -80,6 +86,10 @@ def concluir_tarefa(tarefas):
             if tarefa['id'] == id_escolhido:
                 if tarefa['concluida'] == True:
                     print(f"A tarefa de ID: {id_escolhido} ja estava com status concluida")
+
+                elif id_escolhido != tarefa['id']:
+                    print("ID Não enonrtado")
+                    continue  
                                     
                 else:
                     tarefa['concluida'] = True
